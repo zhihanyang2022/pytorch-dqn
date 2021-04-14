@@ -4,6 +4,8 @@
 
 <img src="tutorial.jpg">
 
+Note that in step 2 the square bracket should be squared.
+
 ## What is this repo?
 
 A minimalistic implementation of DQN with
