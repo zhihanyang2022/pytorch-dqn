@@ -21,7 +21,7 @@ using
 
 tested on CartPole.
 
-To start, simply run `python train_cartpole.py` in your terminal; training stats will be directly printed into your terminal. Convergence on CartPole can be reached within 200 episodes.
+To start, simply run `python train_cartpole.py` in your terminal; training stats will be directly printed into your terminal. Convergence on CartPole (195 total reward for 10 episodes in a row) can be reached within 200 episodes.
 
 ## How is code organized?
 
