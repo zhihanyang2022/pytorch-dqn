@@ -1,6 +1,10 @@
 # pytorch-DQN
 
-## Introduction
+## What is DQN?
+
+<img src="tutorial.jpg">
+
+## What is this repo?
 
 A minimalistic implementation of DQN with
 
@@ -17,7 +21,9 @@ tested on CartPole.
 
 To start, simply run `python train_cartpole.py` in your terminal.
 
-## Dependency structure
+## How is code organized?
+
+Dependency structure:
 
 - train_cartpole.py (top)
     - params_pool.py
