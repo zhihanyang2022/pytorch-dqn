@@ -1,21 +1,26 @@
+import numpy as np
 import gym
+env = gym.make('gym_custom:heaven-hell-onehot-ls-v0')
 
 from replay_buffer import ReplayBuffer
 from params_pool import ParamsPool
 
 buf = ReplayBuffer(size=10000)
-param = ParamsPool(input_dim=4, num_actions=2)
+param = ParamsPool(
+    input_dim=20,  # number of states
+    num_actions=env.action_space.n,  # number of actions
+    epsilon_multiplier=0.99,
+    epsilon_min=0.01
+)
 target_network_update_duration = 10
-max_steps = 200
+max_steps = 40
 batch_size = 32
 
-env = gym.make('CartPole-v0')
-
-num_episodes = 200  # enough for convergence
+num_episodes = 1000
 
 for e in range(num_episodes):
 
-    state = env.reset()
+    _ = env.reset()
 
     total_reward = 0
     total_steps = 0
@@ -24,15 +29,17 @@ for e in range(num_episodes):
 
         # ===== getting the tuple (s, a, r, s', a') =====
 
+        state = env._one_hot(env.get_state(), 20)
         action = param.act_using_behavior_policy(state)
 
-        next_state, reward, done, _ = env.step(action)
+        _, reward, done, _ = env.step(action)
 
         # logistics
         total_reward += reward
         total_steps += 1
         if total_steps >= max_steps: done = True
 
+        next_state = env._one_hot(env.get_state(), 20)
         next_action = param.act_using_target_policy(next_state)
 
         mask = 0 if done else 1
@@ -49,8 +56,6 @@ for e in range(num_episodes):
 
         if done: break
 
-        state = next_state
-
     # ===== after an episode =====
 
     if e % target_network_update_duration == 0:
@@ -58,6 +63,6 @@ for e in range(num_episodes):
 
     param.decay_epsilon()
 
-    print(f'Episode {e:3.0f} | Return {total_reward:3.0f} | Epsilon {param.epsilon:3.2f}')
+    print(f'Episode {e:3.0f} | Return {total_reward:3.0f} | Episode Len {total_steps:3} | Epsilon {param.epsilon:3.2f}')
 
 env.close()
