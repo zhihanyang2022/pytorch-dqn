@@ -14,8 +14,8 @@ using
 - PyTorch
 
 tested on CartPole.
-
-To start, simply run `python train_cartpole.py` in your terminal
+.
+To start, simply run `python train_cartpole.py` in your terminal.
 
 ## Dependency structure
 
