@@ -18,6 +18,6 @@ tested on CartPole.
 ## Dependency structure
 
 - train_cartpole.py (top)
-    - replay_buffer.py
-        - params_pool.py
     - params_pool.py
+        - replay_buffer.py
+    - replay_buffer.py
